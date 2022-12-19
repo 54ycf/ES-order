@@ -1,0 +1,6 @@
+spring:
+  elasticsearch:
+    rest:
+      uris: www.yqspeak.cn:9200
+      username: elastic
+      password: Vca1g5kkho0CiXW*eVyi
