@@ -18,13 +18,13 @@
 
 该数据来源于京东平台2020年5月-2020年8月家用电器脱敏订单数据。数据集一共6.26GB，包含六张表：包含了用户信息、购物车信息、订单信息、浏览记录等数据。最终，我们选取了其中的xjd_order_all表（用户订单）和xjd_user_info表（用户信息）来实现订单查询的功能，其中用户订单数据的文本大小在4GB左右，共有13,920,352条数据，用户信息数据量在40MB左右，共有215,091条数据。此外，我们对部分无关属性做了筛选，并添加了部分属性（如user_info的密码）以保证项目的完整性。
 
-![img](proj_report.assets/clip_image002.jpg)
+![img](README.assets/clip_image002.jpg)
 
 图表 1京东小家电数据集
 
 ### 2. 项目整体架构
 
-![img](proj_report.assets/clip_image004.png)
+![img](README.assets/clip_image004.png)
 
 图表 2 项目架构描述草图
 
@@ -50,7 +50,7 @@ tsDSC = Long.MAX_VALUE - ts(ts为订单下的下单时间转为Long类型的时�
 
 由于我们为了使订单更加均匀地分布在Region中，我们在RowKey的左侧头部添加了哈希值（哈希值的范围是0000-ffff），所以我们在预分区时根据哈希值分为了四个区域，分别是[0000,4000), [4000,8000), [8000,c000), [c000,ffff]。通过预分区，我们很好地解决了在批量插入大量数据时负载不均衡的问题。下面是我们的数据在写入到HBase的某一时刻的分布情况。
 
-![img](proj_report.assets/clip_image006.png)
+![img](README.assets/clip_image006.png)
 
 图表 3 HBase预分区后某时刻数据插入情况
 
