@@ -3,6 +3,7 @@ package com.ecnu.esorder;
 import com.ecnu.esorder.dao.EsDAO;
 import com.ecnu.esorder.param.FlagSearchParam;
 import com.ecnu.esorder.param.KeySearchParam;
+import com.ecnu.esorder.param.RowKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +37,9 @@ public class EsController {
     }
 
     @PostMapping("/delete")
-    public int deleteOrder(@RequestParam String rowkey){
+    public int deleteOrder(@RequestBody RowKey rowkey){
         try {
-            esDAO.updateFlagById("delete_flag", true, rowkey);
+            esDAO.updateFlagById("delete_flag", true, rowkey.getRowKey());
             return 0;
         } catch (IOException e) {
             return 1;
@@ -46,9 +47,9 @@ public class EsController {
     }
 
     @PostMapping("/confirm")
-    public int confirmOrder(@RequestParam String rowkey){
+    public int confirmOrder(@RequestBody RowKey rowkey){
         try {
-            esDAO.updateFlagById("finish_flag", true, rowkey);
+            esDAO.updateFlagById("finish_flag", true, rowkey.getRowKey());
             return 0;
         } catch (IOException e) {
             return 1;
